@@ -1,0 +1,3 @@
+- name: jboss-eap-7.0.0.GA.zip
+  chksum: cd02482daa0398bf5500e1628d28179a
+  handle: eap.zip
