@@ -6,11 +6,10 @@ import os
 class Install(Module):
 
     def install(self):
-        return
-        eap_zip_path = os.path.join("/tmp/script/sources/",
+        eap_zip_path = os.path.join("/tmp/scripts/sources/",
                                     self.artifacts['eap.zip'].name)
         zip = ZipFile(eap_zip_path)
         zip.extractall(os.getenv("JBOSS_HOME"))
 
-        chown(os.getenv("JBOSS_HOME"), user="jboss", group="jboss", rec=True)
+        chown(os.getenv("JBOSS_HOME"), user="jboss", group="jboss", recursive=True)
         chmod(os.getenv("JBOSS_HOME"), 0o755)
