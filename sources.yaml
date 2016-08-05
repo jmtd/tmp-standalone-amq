@@ -1,6 +1,3 @@
-- name: jboss-eap-7.0.0.GA.zip
-  chksum: cd02482daa0398bf5500e1628d28179a
+- name: jboss-a-mq-6.2.1.redhat-084.zip
+  chksum: c1cfb2acf67cbd99710f64ac8e56946c
   handle: distribution.zip
-- name: jbeap4410.zip
-  chksum: 6be8ded1642c644bb1b935a30284bd4a
-  handle: jbeap4410.zip
