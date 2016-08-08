@@ -34,12 +34,21 @@ class AMQInstall(Module):
         if not self.amq_home:
             raise Exception("AMQ_HOME environment variable is not set, I don't know where to install the application server")
 
+        self._check_vars()
         self.sources_path = "/tmp/scripts/sources/"
 
     def teardown(self):
         # Do not execute teardown method from base class
         # XXX: clean up old ZIP?
         pass
+
+    def _check_vars(self):
+        if not "DISTRIBUTION_VERSION" in self.environment:
+            raise Exception("Required variable DISTRIBUTION_VERSION not defined")
+        if not "ACTIVEMQ_VERSION" in self.environment:
+            raise Exception("Required variable ACTIVEMQ_VERSION not defined")
+        if not "JMTDZOMG" in self.environment:
+            raise Exception("Required variable JMTDZOMG not defined")
 
     def _unpack_distribution(self):
         """
