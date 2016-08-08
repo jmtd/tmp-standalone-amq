@@ -47,8 +47,6 @@ class AMQInstall(Module):
             raise Exception("Required variable DISTRIBUTION_VERSION not defined")
         if not "ACTIVEMQ_VERSION" in self.environment:
             raise Exception("Required variable ACTIVEMQ_VERSION not defined")
-        if not "JMTDZOMG" in self.environment:
-            raise Exception("Required variable JMTDZOMG not defined")
 
     def _unpack_distribution(self):
         """
