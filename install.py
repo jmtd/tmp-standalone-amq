@@ -68,9 +68,13 @@ class AMQInstall(Module):
         outerzip.close()
         innerzip = ZipFile(os.path.join(tmp_dir, zipname), "r")
         innerzip.extractall(tmp_dir)
+        innerzip.close()
 
         # Move the distribution to the correct location
         shutil.move(os.path.join(tmp_dir, self.environment["ACTIVEMQ_VERSION"]), self.amq_home)
+
+        os.unlink(os.path.join(tmp_dir, zipname))
+        os.unlink(distribution_zip_path)
 
         self.logger.debug("Unpacked!")
 
