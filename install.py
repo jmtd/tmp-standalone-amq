@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 import shutil
 
-from cct import Module
+from cct.module import Module
 from cct.lib.file_utils import chown, chmod
 
 class AMQInstall(Module):
