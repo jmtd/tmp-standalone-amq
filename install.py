@@ -55,16 +55,22 @@ class AMQInstall(Module):
 
         self.logger.info("Unpacking AMQ distribution...")
 
-        outerzip = zipfile.ZipFile(distribution_zip_path, "r")
-        zipname = os.path.join(os.getenv("DISTRIBUTION_VERSION"), "extras", os.getenv("ACTIVEMQ_VERSION") + "-bin.zip")
-        innerfd  = outerzip.open(zipname, "r")
-        innerzip = zipfile.ZipFile(innerfd, "r")
+        outerzip = ZipFile(distribution_zip_path, "r")
 
+        zipname = os.path.join(self.environment["DISTRIBUTION_VERSION"], "extras", self.environment['ACTIVEMQ_VERSION'] + "-bin.zip")
+
+        # <ZipFile.open> gives you a "filehandle-like" object. ZipFile.__init__
+        # accepts a "filehandle-like" object. Despite this, you can't feed one
+        # of the former to the latter, so we have to do it the "dumb" way.
         tmp_dir = tempfile.mkdtemp()
+
+        outerzip.extract(zipname, tmp_dir)
+        outerzip.close()
+        innerzip = ZipFile(os.path.join(tmp_dir, zipname), "r")
         innerzip.extractall(tmp_dir)
 
         # Move the distribution to the correct location
-        shutil.move(os.path.join(tmp_dir, os.getenv("ACTIVEMQ_VERSION")), self.amq_home)
+        shutil.move(os.path.join(tmp_dir, self.environment["ACTIVEMQ_VERSION"]), self.amq_home)
 
         self.logger.debug("Unpacked!")
 
